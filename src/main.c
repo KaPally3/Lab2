@@ -5,19 +5,27 @@
 // #define N 5
 
 char Pmodel[1000];
+char Pmodel_new[1000] = "\0";
+int LNum = 0;
 int fcF = 0;
-
 void PModel();
-void csvFile();
+void csvFile(double time_spent);
+void outEnd();
 
 int main(int argc, char **argv) {
+  if (argc < 3) {
+    printf("Check!\n");
+    return 0;
+  }
   PModel();
-  csvFile();
+  csvFile(1);
   char *c;
   int rep = strtol(argv[2], &c, 10);
   int N = strtol(argv[1], &c, 10);
   for (int i = 0; i < rep; i++) {
     double time_spent = 0.0;
+
+    fcF = 1;
     clock_t begin = clock();
     int **A = (int **)malloc(N * sizeof(int *));
     int **B = (int **)malloc(N * sizeof(int *));
@@ -65,12 +73,13 @@ int main(int argc, char **argv) {
     clock_t end = clock();
     time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
     printf("%f\n", time_spent);
+    csvFile(time_spent);
   }
 }
 
-void csvFile() {
+void csvFile(double time_spent) {
   FILE *file;
-  file = fopen("csvFile.csv", "w");
+  file = fopen("csvFile.csv", "a");
   if (file == NULL) {
     printf("Error!\n");
     exit(0);
@@ -78,9 +87,23 @@ void csvFile() {
   if (!fcF) {
     fprintf(file,
             "PModel;Task;OpType;Opt;InsCount;Timer;Time;LNum;AvTime;AbsErr;"
-            "RelErr;TaskPerf");
+            "RelErr;TaskPerf\n");
   } else {
-    fprintf(file, "%s;matrix;int;None");
+    outEnd();
+
+    fprintf(file, "%s;matrix;int;None;?InsCount?;clock;%f;%i\n", Pmodel,
+            time_spent, LNum);
+    LNum++;
+  }
+  pclose(file);
+}
+
+void outEnd() {
+  for (int i = 0; i < strlen(Pmodel); i++) {
+    if (Pmodel[i] == '\n') {
+      Pmodel[i] = '\0';
+      break;
+    }
   }
 }
 
