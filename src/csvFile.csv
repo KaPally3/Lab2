@@ -1,1 +1,20 @@
-PModel;Task;OpType;Opt;InsCount;Timer;Time;LNum;AvTime;AbsErr;RelErr;TaskPerf
+PModel,Task,OpType,Opt,InsCount,Timer,Time,LNum,AvTime,AbsErr,RelErr,TaskPerf
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003498",1,0.003498,0.000000,0.000000,285.877644
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,00349",2,0.003494,0.000004,0.114613,286.204923
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003438",3,0.003475,0.000037,1.085903,287.742183
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003413",4,0.003460,0.000047,1.369763,289.038225
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003614",5,0.003491,0.000123,3.414499,286.483699
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003604",6,0.003510,0.000094,2.622087,284.940875
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003457",7,0.003502,0.000045,1.301707,285.551114
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,00342",8,0.003492,0.000072,2.097953,286.389346
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003358",9,0.003477,0.000119,3.540467,287.613448
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,00366",10,0.003495,0.000165,4.502732,286.106661
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003597",11,0.003504,0.000093,2.572851,285.351112
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003578",12,0.003511,0.000067,1.884200,284.852945
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003382",13,0.003501,0.000119,3.509530,285.657782
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003779",14,0.003521,0.000258,6.838544,284.044798
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003584",15,0.003525,0.000059,1.651786,283.704040
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003658",16,0.003533,0.000125,3.413751,283.035556
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003217",17,0.003515,0.000298,9.248661,284.533115
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003634",18,0.003521,0.000113,3.104935,283.996781
+11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz,matrix,int,None,1,clock,"0,003507",19,0.003520,0.000013,0.382693,284.056931

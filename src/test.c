@@ -1,4 +1,3 @@
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,23 +5,13 @@
 // #define N 5
 
 char Pmodel[1000];
-char Pmodel_new[1000] = "\0";
 int LNum = 1;
 int fcF = 0;
 double avgTimee = 0.0;
-double avgTimee_o = 0.0;
-double absErr = 0.0;
-double relErr = 0.0;
-double taskPef = 0.0;
-
-void intMatrix(int rep, int N);
 void PModel();
 void csvFile(double time_spent);
 void outEnd();
 void avgTime();
-void absError(double time_spent);
-void RelError(double time_spent);
-void TaskPerf();
 
 int main(int argc, char **argv) {
   if (argc < 3) {
@@ -34,13 +23,9 @@ int main(int argc, char **argv) {
   char *c;
   int rep = strtol(argv[2], &c, 10);
   int N = strtol(argv[1], &c, 10);
-
-  intMatrix(rep, N);
-}
-
-void intMatrix(int rep, int N) {
   for (int i = 0; i < rep; i++) {
     double time_spent = 0.0;
+
     fcF = 1;
     clock_t begin = clock();
     int **A = (int **)malloc(N * sizeof(int *));
@@ -61,7 +46,23 @@ void intMatrix(int rep, int N) {
       for (int j = 0; j < N; j++) {
         C[i][j] = 0;
         for (int k = 0; k < N; k++) C[i][j] += A[i][k] * B[k][j];
+      } /*
+     printf("matrix A\n");
+     for (int i = 0; i < N; i++) {
+       for (int j = 0; j < N; j++) printf("%d ", A[i][j]);
+       printf("\n");
+     }
+     printf("\nmatrix B\n");
+     for (int i = 0; i < N; i++) {
+       for (int j = 0; j < N; j++) printf("%d ", B[i][j]);
+       printf("\n");
+     }
+      printf("\nthe result of multiplying\n");
+      for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) printf("%3d ", C[i][j]);
+        printf("\n");
       }
+      */
     for (int i = 0; i < N; i++) {
       free(A[i]);
       free(B[i]);
@@ -74,9 +75,9 @@ void intMatrix(int rep, int N) {
     time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
     printf("%f\n", time_spent);
     avgTimee += time_spent;
-    // if (i == rep - 1) {
-    //   fcF = 2;
-    // }
+    if (i == rep - 1) {
+      fcF = 2;
+    }
     csvFile(time_spent);
   }
 }
@@ -93,38 +94,25 @@ void csvFile(double time_spent) {
             "PModel;Task;OpType;Opt;InsCount;Timer;Time;LNum;AvTime;AbsErr;"
             "RelErr;TaskPerf\n");
   }
-  // if (fcF == 2) {
-  //   absError(time_spent);
-  //   avgTime();
-  //   fprintf(file, "%s;matrix;int;None;?InsCount?;clock;%f;%i;%f;%f\n",
-  //   Pmodel,
-  //           time_spent, LNum, avgTimee, absErr);
-  // }
-  if (fcF) {
-    outEnd();
+  if (fcF == 2) {
     avgTime();
-    absError(time_spent);
-    RelError(time_spent);
-    TaskPerf();
-    fprintf(file, "%s;matrix;int;None;1;clock;%f;%i;%f;%f;%f;%f\n", Pmodel,
-            time_spent, LNum, avgTimee_o, absErr, relErr, taskPef);
+    fprintf(file, "%s;matrix;int;None;?InsCount?;clock;%f;%i;%f\n", Pmodel,
+            time_spent, LNum, avgTimee);
+  }
+  if (fcF == 1) {
+    outEnd();
+
+    fprintf(file, "%s;matrix;int;None;?InsCount?;clock;%f;%i; ;\n", Pmodel,
+            time_spent, LNum);
     LNum++;
   }
-  fclose(file);
+  pclose(file);
 }
 
-void avgTime() { avgTimee_o = avgTimee / LNum; }
-
-void absError(double time_spent) {
-  absErr = fabs((avgTimee / LNum) - time_spent);
-}
-
-void RelError(double time_spent) { relErr = absErr * 100 / time_spent; }
-
-void TaskPerf() { taskPef = 1 / avgTimee_o; }
+void avgTime() { avgTimee /= LNum; }
 
 void outEnd() {
-  for (long unsigned int i = 0; i < strlen(Pmodel); i++) {
+  for (int i = 0; i < strlen(Pmodel); i++) {
     if (Pmodel[i] == '\n') {
       Pmodel[i] = '\0';
       break;
@@ -134,6 +122,7 @@ void outEnd() {
 
 void PModel() {
   FILE *uname;
+
   int lastchar;
   uname = popen(
       "lscpu | grep -E '^Имя модели|^Model name' | sed 's/Имя "
